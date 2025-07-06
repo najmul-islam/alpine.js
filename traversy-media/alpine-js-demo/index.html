@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Alpine.js</title>
+
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mx-auto mt-6 max-w-sm">
+        <h1 class="text-5xl mb-4">Alpine.js Demo</h1>
+
+        <!-- x-data alpine component -->
+        <div x-data="{open:false, name:'Jhone',search:'', posts:[
+        {title:'Post 1'}, {title:'Post 2'}, {title:'Post 3'}]}">
+
+            <!-- x-on  & x-bind -->
+            <button x-on:click="open = !open" x-bind:class="open ? 'bg-blue-300' : 'bg-slate-700'"
+                class="text-white px-6 py-2 rounded-md">Toggle</button>
+            <!-- x-show -->
+            <div x-show="open" x-transition x-cloak class="bg-gray-100 p-4 mt-4 rounded-xl">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod consectetur ipsam quos ex at impedit
+                    illum
+                    iste velit voluptas fugiat! Aut, libero temporibus porro perspiciatis non modi voluptatum. Illum,
+                    fugiat!</p>
+            </div>
+            <!-- x-text -->
+            <div class="my-4">
+                The value of name is <span x-text="name" class="font-bold"></span>
+            </div>
+
+            <!-- x-effect -->
+            <div x-effect="console.log(open)" class=""></div>
+
+            <!-- x-model -->
+            <input x-model="search" type="text" class="border p-2 w-full mb-2 mt-6"
+                placeholder="Search for something...">
+            <span class="font-bold">Searching for:</span>
+            <span x-text="search"></span>
+
+            <!-- x-if -->
+            <template x-if="open">
+                <div class="bg-gray-50 p-2 mt-8">Template based on a condition</div>
+            </template>
+
+            <!-- x-for -->
+            <h3 class="text-2xl mt-6 mb-3 font-bold">Posts</h3>
+            <template x-for="post in posts">
+                <div x-text="post.title" class=""></div>
+            </template>
+
+            <button @click="posts.push({title:'New Post'})" class="bg-blue-800 text-white px-6 py-2 rounded-md mt-4">Add
+                Post</button>
+
+            <!-- x-ref -->
+            <div class="my-6">
+                <div x-ref="text" class="text-lg font-bold"></div>
+                <button @click="$refs.text.innerText = 'Hello world'" class="bg-black text-white p-2 rounde-lg">Add
+                    Text</button>
+                <button @click="$refs.text.remove()" class="bg-black text-white p-2 rounde-lg">Remove Text</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
